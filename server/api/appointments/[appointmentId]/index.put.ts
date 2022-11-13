@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
       startTime: body.startTime,
       endTime: body.endTime,
       status: body.status,
+      title: body.title,
     },
   });
   if (appointment) {

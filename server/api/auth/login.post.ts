@@ -11,7 +11,10 @@ export default defineEventHandler(async (event) => {
       include: { appointments: true, diagnoses: true },
     });
   } else {
-    user = await client.patient.findUnique({ where: { email: body.email } });
+    user = await client.patient.findUnique({
+      where: { email: body.email },
+      include: { appointments: true },
+    });
   }
   if (user) {
     const success = await bcrypt.compare(body.password, user.password);

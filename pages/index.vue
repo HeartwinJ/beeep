@@ -1,41 +1,38 @@
 <script setup lang="ts">
-// @ts-ignore
-import VueCal from "vue-cal";
+import dayjs from "dayjs";
 import { useAuthStore } from "~~/stores/auth";
+import { useDoctorsStore } from "~~/stores/doctors";
 
 definePageMeta({
   layout: "dashboard",
 });
 
 const auth = useAuthStore();
+const doctorsStore = useDoctorsStore();
 
-const events = ref([
-  {
-    start: "2022-11-09 10:30",
-    end: "2022-11-09 11:30",
-    title: "Doctor appointment",
+const isLoading = ref(true);
+
+const events = computed(() =>
+  auth.user.appointments!.map((el) => ({
+    id: el.id,
+    start: dayjs(el.startTime).format("YYYY-MM-DD H:mm"),
+    end: dayjs(el.endTime).format("YYYY-MM-DD H:mm"),
+    title: el.title,
     class: "bg-red-300",
-  },
-]);
+  }))
+);
 
-function handleEventClick(event, e) {
-  e.stopPropagation();
-  console.log(event);
-}
+console.log(auth.user.appointments, events.value);
+
+onMounted(async () => {
+  await doctorsStore.getDoctors();
+  isLoading.value = false;
+});
 </script>
 
 <template>
-  <div class="p-5">
-    <div style="height: 720px" v-if="auth.user.accountType === 'DOCTOR'">
-      <VueCal
-        :time-from="6 * 60"
-        :time-to="20 * 60"
-        :events="events"
-        :on-event-click="handleEventClick"
-        events-on-month-view="short"
-        hide-weekends
-      ></VueCal>
-    </div>
-    <div v-else>Patient Dash</div>
+  <div class="p-5" v-if="!isLoading">
+    <DoctorDash :events="events" v-if="auth.user.accountType === 'DOCTOR'" />
+    <PatientDash :appointments="auth.user.appointments" v-else />
   </div>
 </template>

@@ -49,11 +49,12 @@ model Appointment {
   startTime DateTime
   endTime   DateTime
   status    String
+  title     String
   doctor    Doctor     @relation(fields: [docId], references: [id])
   patient   Patient    @relation(fields: [patientId], references: [id])
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  Diagnosis Diagnosis?
+  diagnosis Diagnosis?
 
   @@map("appointments")
 }

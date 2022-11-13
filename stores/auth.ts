@@ -34,6 +34,13 @@ export const useAuthStore = defineStore("auth", {
     setUser(_data: User) {
       this.user = { ..._data };
     },
+    async refreshAppointments() {
+      this.user.appointments = (
+        await $fetch(`/api/appointments/byUser/${this.user.id}`, {
+          method: "GET",
+        })
+      ).appointments;
+    },
     async authenticate(accountType: string, email: string, password: string) {
       const res = await $fetch("/api/auth/login", {
         method: "POST",

@@ -10,8 +10,8 @@ const showProfile = ref(false);
   <div>
     <div class="flex h-16 justify-between p-4">
       <div class="flex items-center gap-2">
-        <img class="h-12 w-12" />
-        <span class="uppercase text-2xl tracking-widest">Beeeeep</span>
+        <img src="/img/logo.svg" class="h-12 w-12" />
+        <span class="uppercase text-2xl tracking-widest">Beeep</span>
       </div>
       <div class="flex items-center gap-2">
         <button
