@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Doctor {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  dob            DateTime
+  gender         String
+  specialization String
+  email          String        @unique
+  password       String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  appointments   Appointment[]
+  diagnoses      Diagnosis[]
+
+  @@map("doctors")
+}
+
+model Patient {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  dob          DateTime
+  gender       String
+  mobileNum    Int
+  email        String        @unique
+  password     String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  appointments Appointment[]
+  diagnoses    Diagnosis[]
+
+  @@map("patients")
+}
+
+model Appointment {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  docId     String     @db.ObjectId
+  patientId String     @db.ObjectId
+  startTime DateTime
+  endTime   DateTime
+  status    String
+  doctor    Doctor     @relation(fields: [docId], references: [id])
+  patient   Patient    @relation(fields: [patientId], references: [id])
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Diagnosis Diagnosis?
+
+  @@map("appointments")
+}
+
+model Diagnosis {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  docId         String      @db.ObjectId
+  patientId     String      @db.ObjectId
+  appointmentId String      @unique @db.ObjectId
+  symptoms      String
+  prescription  String
+  ailment       String
+  report        String
+  doctor        Doctor      @relation(fields: [docId], references: [id])
+  patient       Patient     @relation(fields: [patientId], references: [id])
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("diagnoses")
+}
