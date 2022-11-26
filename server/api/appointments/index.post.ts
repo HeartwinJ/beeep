@@ -7,7 +7,7 @@ dayjs.extend(isBetween);
 const client = new prisma.PrismaClient({});
 
 export default defineEventHandler(async (event) => {
-  const body = await useBody(event);
+  const body = await readBody(event);
 
   const _appointments = await client.appointment.findMany({
     where: { docId: body.docId },

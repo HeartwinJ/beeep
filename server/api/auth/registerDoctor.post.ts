@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 const client = new prisma.PrismaClient({});
 
 export default defineEventHandler(async (event) => {
-  const body = await useBody(event);
+  const body = await readBody(event);
 
   const encPass = await bcrypt.hash(body.password, 10);
   const user = await client.doctor.create({

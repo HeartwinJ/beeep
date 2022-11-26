@@ -29,6 +29,7 @@ export const useAuthStore = defineStore("auth", {
   state: () => ({
     isAuthenticated: false,
     user: {} as User,
+    token: "",
   }),
   actions: {
     setUser(_data: User) {
@@ -38,6 +39,9 @@ export const useAuthStore = defineStore("auth", {
       this.user.appointments = (
         await $fetch(`/api/appointments/byUser/${this.user.id}`, {
           method: "GET",
+          headers: {
+            Authorization: this.token,
+          },
         })
       ).appointments;
     },
@@ -62,6 +66,7 @@ export const useAuthStore = defineStore("auth", {
           appointments: res.user!.appointments || [],
           diagnoses: res.user!.diagnoses || [],
         });
+        this.token = res.user?.token as string;
         return true;
       }
       return false;

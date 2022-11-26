@@ -24,6 +24,7 @@
     "@types/bcrypt": "^5.0.0",
     "bcrypt": "^5.1.0",
     "dayjs": "^1.11.6",
+    "jose": "^4.11.1",
     "pinia": "^2.0.26",
     "vue-cal": "^4.8.1",
     "vue-tabler-icons": "^2.16.0"

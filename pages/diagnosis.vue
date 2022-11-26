@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { Appointment, Patient, Doctor } from "@prisma/client";
+import { useAuthStore } from "~~/stores/auth";
+
 definePageMeta({
   layout: "dashboard",
 });
+
+const auth = useAuthStore();
 
 const route = useRoute();
 
@@ -21,6 +25,9 @@ onMounted(async () => {
   appointmentData.value = (
     await $fetch(`/api/appointments/${route.query.appointmentId}`, {
       method: "GET",
+      headers: {
+        Authorization: auth.token,
+      },
     })
   ).appointment!;
 
@@ -30,6 +37,9 @@ onMounted(async () => {
 async function handleSubmit() {
   await $fetch("/api/diagnoses", {
     method: "POST",
+    headers: {
+      Authorization: auth.token,
+    },
     body: {
       docId: appointmentData.value.docId,
       patientId: appointmentData.value.patientId,

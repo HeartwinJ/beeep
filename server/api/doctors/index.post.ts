@@ -2,7 +2,7 @@ import prisma from "@prisma/client";
 const client = new prisma.PrismaClient({});
 
 export default defineEventHandler(async (event) => {
-  const body = await useBody(event);
+  const body = await readBody(event);
   const doctor = await client.doctor.create({
     data: {
       name: body.name,

@@ -2,7 +2,7 @@ import prisma from "@prisma/client";
 const client = new prisma.PrismaClient({});
 
 export default defineEventHandler(async (event) => {
-  const body = await useBody(event);
+  const body = await readBody(event);
   const appointment = await client.appointment.update({
     where: { id: event.context.params.appointmentId },
     data: {

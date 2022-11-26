@@ -2,7 +2,7 @@ import prisma from "@prisma/client";
 const client = new prisma.PrismaClient({});
 
 export default defineEventHandler(async (event) => {
-  const body = await useBody(event);
+  const body = await readBody(event);
   const diagnosis = await client.diagnosis.create({
     data: {
       docId: body.docId,
