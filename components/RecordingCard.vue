@@ -3,7 +3,7 @@ import { Recording } from "@prisma/client";
 import dayjs from "dayjs";
 
 interface Props {
-  recordnf: Recording;
+  recording: Recording;
 }
 
 const props = defineProps<Props>();
@@ -12,9 +12,12 @@ const props = defineProps<Props>();
 <template>
   <!-- visualizer here with the url attached -->
   <div class="text-sm text-gray-500">
-    {{ props.recordnf.url }}
+    <av-waveform
+      audio-src="{{ props.recording.url }}"
+    ></av-waveform>
     {{
-      dayjs(props.recordnf.createdAt).format("ddd D MMM, YYYY- hh : mm : ss")
+      dayjs(props.recording.createdAt).format("ddd D MMM, YYYY- hh : mm : ss")
     }}
   </div>
+
 </template>

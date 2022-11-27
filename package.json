@@ -26,6 +26,7 @@
     "dayjs": "^1.11.6",
     "jose": "^4.11.1",
     "pinia": "^2.0.26",
+    "vue-audio-visual": "^3.0.2",
     "vue-cal": "^4.8.1",
     "vue-tabler-icons": "^2.16.0"
   }
