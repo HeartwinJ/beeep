@@ -38,7 +38,7 @@ onMounted(async () => {
     <div class="z-50 rounded-lg bg-white p-5 w-full max-w-lg">
       <div class="flex justify-between items-center mb-5 gap-4">
         <div class="text-xl font-medium">Diagnosis Details</div>
-        <div>
+        <div class="text-sm font-normal">
         {{
           dayjs(diagnosisData?.appointment.startTime).format(
             "ddd D MMM, YYYY"
@@ -47,15 +47,15 @@ onMounted(async () => {
         </div>
       </div>
       <div class="flex gap-2">
-        <DiagnosisDetails title="Doctor" class="grow">
-          <div>
+        <DiagnosisDetails title="Doctor" class="grow m-2 text-sm">
+          <div >
             {{ diagnosisData?.doctor.name }}
           </div>
           <div>
             {{ diagnosisData?.doctor.specialization }}
           </div>
         </DiagnosisDetails>
-        <DiagnosisDetails title="Patient" class="grow">
+        <DiagnosisDetails title="Patient" class="grow  m-2 text-sm">
           <div>
             {{ diagnosisData?.patient.name }}
           </div>
@@ -69,22 +69,22 @@ onMounted(async () => {
         </DiagnosisDetails>
       </div>
 
-      <DiagnosisDetails title="Symptoms">
+      <DiagnosisDetails title="Symptoms" class=" m-2 text-sm">
           <div>
             {{ diagnosisData?.symptoms }}
           </div>
         </DiagnosisDetails>
-        <DiagnosisDetails title="Findings">
+        <DiagnosisDetails title="Findings" class=" m-2 text-sm">
           <div>
             {{ diagnosisData?.findings }}
           </div>
         </DiagnosisDetails>
-        <DiagnosisDetails title="Prescription">
+        <DiagnosisDetails title="Prescription" class=" m-2 text-sm">
           <div>
             {{ diagnosisData?.prescription }}
           </div>
         </DiagnosisDetails>
-        <DiagnosisDetails title="Ailment">
+        <DiagnosisDetails title="Ailment" class=" m-2 text-sm">
           <div>
             {{ diagnosisData?.ailment }}
           </div>
