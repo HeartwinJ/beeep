@@ -33,8 +33,8 @@ onMounted(async () => {
   <div class="p-5" v-if="!isLoading">
     <div class="space-y-8">
       <div class="text-2xl font-medium">My Recordings</div>
-      <div class="grid grid-cols-3 gap-2" v-if="recordings?.length">
-        <RecordingCard v-for="recording in recordings" :recording="recording" />
+      <div class="flex flex-col justify-center items-center" v-if="recordings?.length">
+        <RecordingCard v-for="recording in recordings" :recording="recording" class="p-5"/>
       </div>
       <div
         class="flex flex-col items-center justify-center gap-4 py-24 text-gray-400"
