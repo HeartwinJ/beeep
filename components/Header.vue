@@ -11,7 +11,11 @@ const showProfile = ref(false);
     <div class="flex h-16 justify-between p-4">
       <div class="flex items-center gap-2">
         <img src="/img/logo.svg" class="h-12 w-12" />
-        <span class="uppercase text-2xl tracking-widest">Beeep</span>
+        <span class="text-2xl uppercase tracking-widest">Beeep</span>
+      </div>
+      <div class="flex gap-2" v-if="auth.user.accountType === 'PATIENT'">
+        <router-link to="/patient/appointments" active-class="font-bold">Appointments</router-link>
+        <router-link to="/patient/recordings" active-class="font-bold">Recordings</router-link>
       </div>
       <div class="flex items-center gap-2">
         <button

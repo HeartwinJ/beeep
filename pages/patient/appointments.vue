@@ -1,24 +1,34 @@
 <script setup lang="ts">
-import { Appointment } from "@prisma/client";
+import { Appointment } from ".prisma/client";
+import { useAuthStore } from "~~/stores/auth";
+import { useDoctorsStore } from "~~/stores/doctors";
 import { PlusIcon, MoodSadIcon } from "vue-tabler-icons";
 
-interface Props {
-  appointments: Appointment[];
-}
+definePageMeta({
+  layout: "dashboard",
+});
 
-const props = defineProps<Props>();
+const auth = useAuthStore();
+const doctorsStore = useDoctorsStore();
 
+const isLoading = ref(true);
 const showNew = ref(false);
 const showDetails = ref(false);
 const currentAppointmentId = ref("");
+
+onMounted(async () => {
+  await doctorsStore.getDoctors();
+  isLoading.value = false;
+});
 
 function showDiagnosis(appointmentId: string) {
   currentAppointmentId.value = appointmentId;
   showDetails.value = true;
 }
 </script>
+
 <template>
-  <div>
+  <div class="p-5" v-if="!isLoading">
     <div class="space-y-8">
       <div class="flex justify-between">
         <div class="text-2xl font-medium">My Appointments</div>
@@ -30,10 +40,13 @@ function showDiagnosis(appointmentId: string) {
           <span class="font-medium">New Appointment</span>
         </button>
       </div>
-      <div class="grid grid-cols-3 gap-2" v-if="props.appointments.length">
+      <div
+        class="grid grid-cols-3 gap-2"
+        v-if="(auth.user.appointments as Appointment[]).length"
+      >
         <AppointmentCard
           :appointment="appointment"
-          v-for="appointment in props.appointments"
+          v-for="appointment in auth.user.appointments as Appointment[]"
           @open="showDiagnosis(appointment.id)"
         />
       </div>
