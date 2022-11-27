@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 <template>
     <div class="bg-slate-100 rounded-lg p-3 mb-2">
-       <div class="text-lg font-semibold">
+       <div class="text-lg font-semibold ">
         {{ props.title }}
     </div>
     <div>
