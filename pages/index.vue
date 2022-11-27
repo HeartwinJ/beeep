@@ -22,8 +22,6 @@ const events = computed(() =>
   }))
 );
 
-console.log(auth.user.appointments, events.value);
-
 onMounted(async () => {
   await doctorsStore.getDoctors();
   isLoading.value = false;
