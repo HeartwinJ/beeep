@@ -3,7 +3,8 @@ const client = new prisma.PrismaClient({});
 
 export default defineEventHandler(async (event) => {
   const diagnosis = await client.diagnosis.findFirst({
-    where: { id: event.context.params.diagnosisId },
+    where: { appointmentId: event.context.params.appointmentId },
+    include: { doctor: true, patient: true, appointment: true },
   });
   if (diagnosis) {
     return { success: true, diagnosis };

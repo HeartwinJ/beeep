@@ -14,7 +14,7 @@ export const useDoctorsStore = defineStore("doctors", {
         await $fetch("/api/doctors", {
           method: "GET",
           headers: {
-            Authorization: auth.token,
+            authorization: auth.token,
           },
         })
       ).doctors;

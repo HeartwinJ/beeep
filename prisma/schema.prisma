@@ -36,10 +36,21 @@ model Patient {
   password     String
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
+  recordings   Recording[]
   appointments Appointment[]
   diagnoses    Diagnosis[]
 
   @@map("patients")
+}
+
+model Recording {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  patientId String   @db.ObjectId
+  url       String
+  patient   Patient  @relation(fields: [patientId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@map("recordings")
 }
 
 model Appointment {
@@ -66,8 +77,8 @@ model Diagnosis {
   appointmentId String      @unique @db.ObjectId
   symptoms      String
   prescription  String
+  findings      String
   ailment       String
-  report        String
   doctor        Doctor      @relation(fields: [docId], references: [id])
   patient       Patient     @relation(fields: [patientId], references: [id])
   appointment   Appointment @relation(fields: [appointmentId], references: [id])

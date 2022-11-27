@@ -26,7 +26,7 @@ onMounted(async () => {
     await $fetch(`/api/appointments/${route.query.appointmentId}`, {
       method: "GET",
       headers: {
-        Authorization: auth.token,
+        authorization: auth.token,
       },
     })
   ).appointment!;
@@ -38,7 +38,7 @@ async function handleSubmit() {
   await $fetch("/api/diagnoses", {
     method: "POST",
     headers: {
-      Authorization: auth.token,
+      authorization: auth.token,
     },
     body: {
       docId: appointmentData.value.docId,

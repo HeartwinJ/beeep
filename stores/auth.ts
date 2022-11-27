@@ -40,7 +40,7 @@ export const useAuthStore = defineStore("auth", {
         await $fetch(`/api/appointments/byUser/${this.user.id}`, {
           method: "GET",
           headers: {
-            Authorization: this.token,
+            authorization: this.token,
           },
         })
       ).appointments;

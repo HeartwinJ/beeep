@@ -7,15 +7,24 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+const emit = defineEmits(["open"]);
+
+function handleClick() {
+  if (props.appointment.status === "COMPLETE") {
+    emit("open");
+  }
+}
 </script>
 <template>
   <div
     class="rounded-lg border-l-4 border-red-600 bg-white p-2 shadow"
     :class="{
-      'border-green-600': props.appointment.status === 'COMPLETE',
+      'cursor-pointer border-green-600':
+        props.appointment.status === 'COMPLETE',
       'border-yellow-600': props.appointment.status === 'NEW',
       'border-red-600': props.appointment.status === 'CANCELLED',
     }"
+    @click="handleClick"
   >
     <div class="text-lg font-medium">
       {{ props.appointment.title }}

@@ -2,7 +2,7 @@ import prisma from "@prisma/client";
 const client = new prisma.PrismaClient({});
 
 export default defineEventHandler(async (event) => {
-  const query = useQuery(event);
+  const query = getQuery(event);
   let appointments;
   if (query.status) {
     appointments = await client.appointment.findMany({

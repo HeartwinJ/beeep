@@ -9,6 +9,13 @@ interface Props {
 const props = defineProps<Props>();
 
 const showNew = ref(false);
+const showDetails = ref(false);
+const currentAppointmentId = ref("");
+
+function showDiagnosis(appointmentId: string) {
+  currentAppointmentId.value = appointmentId;
+  showDetails.value = true;
+}
 </script>
 <template>
   <div>
@@ -27,13 +34,22 @@ const showNew = ref(false);
         <AppointmentCard
           :appointment="appointment"
           v-for="appointment in props.appointments"
+          @open="showDiagnosis(appointment.id)"
         />
       </div>
-      <div class="flex flex-col items-center justify-center py-24 gap-4 text-gray-400" v-else>
+      <div
+        class="flex flex-col items-center justify-center gap-4 py-24 text-gray-400"
+        v-else
+      >
         <MoodSadIcon size="48" />
         <div>Oops! No Appointments.</div>
       </div>
     </div>
     <NewAppointment v-if="showNew" @close="showNew = false" />
+    <AppointmentDetails
+      v-if="showDetails"
+      :appointmentId="currentAppointmentId"
+      @close="showDetails = false"
+    />
   </div>
 </template>

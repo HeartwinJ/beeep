@@ -22,7 +22,7 @@ async function handleSubmit() {
   const res = await $fetch("/api/appointments", {
     method: "POST",
     headers: {
-      Authorization: auth.token,
+      authorization: auth.token,
     },
     body: {
       startTime: dayjs(formData.startTime).toISOString(),
