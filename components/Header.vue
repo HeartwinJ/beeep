@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { LogoutIcon, UserIcon } from "vue-tabler-icons";
+import {
+  LogoutIcon,
+  UserIcon,
+  ClipboardCheckIcon,
+  StethoscopeIcon,
+} from "vue-tabler-icons";
 import { useAuthStore } from "~~/stores/auth";
 
 const auth = useAuthStore();
@@ -13,9 +18,23 @@ const showProfile = ref(false);
         <img src="/img/logo.svg" class="h-12 w-12" />
         <span class="text-2xl uppercase tracking-widest">Beeep</span>
       </div>
-      <div class="flex gap-2" v-if="auth.user.accountType === 'PATIENT'">
-        <router-link to="/patient/appointments" active-class="font-bold">Appointments</router-link>
-        <router-link to="/patient/recordings" active-class="font-bold">Recordings</router-link>
+      <div class="flex gap-10" v-if="auth.user.accountType === 'PATIENT'">
+        <div class="flex items-center" active-class="font-bold border-b-4 p-2">
+          <ClipboardCheckIcon />
+          <router-link
+            to="/patient/appointments"
+            active-class="font-bold border-b-4 p-2"
+            >Appointments</router-link
+          >
+        </div>
+        <div class="flex items-center gap-2">
+          <StethoscopeIcon />
+          <router-link
+            to="/patient/recordings"
+            active-class="font-bold border-b-4 p-2"
+            >Recordings</router-link
+          >
+        </div>
       </div>
       <div class="flex items-center gap-2">
         <button
