@@ -11,13 +11,15 @@ const props = defineProps<Props>();
 
 <template>
   <!-- visualizer here with the url attached -->
-  <div class="text-sm text-gray-500">
-    <av-waveform
-      audio-src="{{ props.recording.url }}"
-    ></av-waveform>
+  <div class="rounded-lg bg-white border-sm p-5 shadow flex items-center">
+    <div class="px-4">
     {{
       dayjs(props.recording.createdAt).format("ddd D MMM, YYYY- hh : mm : ss")
     }}
+    </div>
+    <av-waveform 
+      audio-src="{{ props.recording.url }}"
+    ></av-waveform>
   </div>
 
 </template>
